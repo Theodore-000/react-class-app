@@ -30,10 +30,13 @@ export default class App extends Component {
   };
 
   render() {
-    const filteredSearch = this.state.monsters.filter((monster) => {
+    const { searchField, monsters } = this.state;
+    const { onSearchChange } = this;
+
+    const filteredSearch = monsters.filter((monster) => {
       return (
-        monster.name.toLocaleLowerCase().includes(this.state.searchField) |
-        monster.username.toLocaleLowerCase().includes(this.state.searchField)
+        monster.name.toLocaleLowerCase().includes(searchField) |
+        monster.username.toLocaleLowerCase().includes(searchField)
       );
     });
     return (
@@ -42,7 +45,7 @@ export default class App extends Component {
           Monsters Rolodex
         </h1>
         <SearchBox
-          onChangeHandler={this.onSearchChange}
+          onChangeHandler={onSearchChange}
           placeholder={"search monsters"}
         />
         <CardList monsters={filteredSearch} />
